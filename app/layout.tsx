@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeContext";
+import ClientThemeWrapper from "@/components/ClientThemeWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" data-theme="coffee">
+      <body
+        className={` ${inter.className} grid grid-rows-[auto_1fr_auto] h-screen`}
+      >
+        <ThemeProvider>
+          <ClientThemeWrapper>
+            <Navbar />
+            {children}
+            <Footer />
+          </ClientThemeWrapper>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
